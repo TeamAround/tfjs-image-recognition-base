@@ -2,7 +2,7 @@ import { Environment } from './types';
 
 export function createBrowserEnv(): Environment {
 
-  const fetch = window['fetch'] || function() {
+  const fetch = window && window['fetch'] ? window['fetch'] : function() {
     throw new Error('fetch - missing fetch implementation for browser environment')
   }
 
