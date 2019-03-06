@@ -8,12 +8,12 @@ function createBrowserEnv() {
         throw new Error('readFile - filesystem not available for browser environment');
     };
     return {
-        Canvas: HTMLCanvasElement,
-        Image: HTMLImageElement,
+        Canvas: window ? window['OffscreenCanvas'] : self ? self['OffscreenCanvas'] : HTMLCanvasElement,
+        Image: window ? window['HTMLImageElement'] : self ? self['HTMLImageElement'] : null,
         ImageData: ImageData,
-        Video: HTMLVideoElement,
-        createCanvasElement: function () { return document.createElement('canvas'); },
-        createImageElement: function () { return document.createElement('img'); },
+        Video: window ? window['HTMLVideoElement'] : self ? self['HTMLVideoElement'] : null,
+        createCanvasElement: function () { return (window && ('OffscreenCanvas' in window)) || (self && ('OffscreenCanvas' in self)) ? new OffscreenCanvas(1, 1) : document ? document.createElement('canvas') : {}; },
+        createImageElement: function () { return document ? document.createElement('img') : {}; },
         fetch: fetch,
         readFile: readFile
     };

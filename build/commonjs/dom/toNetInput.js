@@ -31,7 +31,7 @@ function toNetInput(inputs) {
                     getIdxHint = function (idx) { return Array.isArray(inputs) ? " at input index " + idx + ":" : ''; };
                     inputArray = inputArgArray.map(resolveInput_1.resolveInput);
                     inputArray.forEach(function (input, i) {
-                        if (!isMediaElement_1.isMediaElement(input) && !utils_1.isTensor3D(input) && !utils_1.isTensor4D(input)) {
+                        if (!utils_1.isTensor3D(input) && !utils_1.isTensor4D(input) && !isMediaElement_1.isMediaElement(input)) {
                             if (typeof inputArgArray[i] === 'string') {
                                 throw new Error("toNetInput -" + getIdxHint(i) + " string passed, but could not resolve HTMLElement for element id " + inputArgArray[i]);
                             }

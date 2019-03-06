@@ -30,7 +30,7 @@ export async function toNetInput(inputs: TNetInput): Promise<NetInput> {
   const inputArray = inputArgArray.map(resolveInput)
 
   inputArray.forEach((input, i) => {
-    if (!isMediaElement(input) && !isTensor3D(input) && !isTensor4D(input)) {
+    if (!isTensor3D(input) && !isTensor4D(input) && !isMediaElement(input)) {
 
       if (typeof inputArgArray[i] === 'string') {
         throw new Error(`toNetInput -${getIdxHint(i)} string passed, but could not resolve HTMLElement for element id ${inputArgArray[i]}`)

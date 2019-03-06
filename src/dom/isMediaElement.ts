@@ -4,7 +4,7 @@ export function isMediaElement(input: any) {
 
   const { Image, Canvas, Video } = env.getEnv()
 
-  return input instanceof Image
-    || input instanceof Canvas
-    || input instanceof Video
+  return (Image && input instanceof Image)
+    || (Canvas && input instanceof Canvas)
+    || (Video && input instanceof Video)
 }

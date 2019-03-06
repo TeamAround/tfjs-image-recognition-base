@@ -11,12 +11,12 @@ export function createBrowserEnv(): Environment {
   }
 
   return {
-    Canvas: HTMLCanvasElement,
-    Image: HTMLImageElement,
+    Canvas: window ? window['OffscreenCanvas'] : self ? self['OffscreenCanvas'] : HTMLCanvasElement,
+    Image: window ? window['HTMLImageElement'] : self ? self['HTMLImageElement'] : null,
     ImageData: ImageData,
-    Video: HTMLVideoElement,
-    createCanvasElement: () => document.createElement('canvas'),
-    createImageElement: () => document.createElement('img'),
+    Video: window ? window['HTMLVideoElement'] : self ? self['HTMLVideoElement'] : null,
+    createCanvasElement: () => (window && ('OffscreenCanvas' in window)) || (self && ('OffscreenCanvas' in self)) ? new OffscreenCanvas(1, 1) : document ? document.createElement('canvas') : {} as HTMLCanvasElement,
+    createImageElement: () => document ? document.createElement('img') : {} as HTMLImageElement,
     fetch,
     readFile
   }
